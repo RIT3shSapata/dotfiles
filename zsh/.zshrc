@@ -133,7 +133,7 @@ eval "$(pyenv init -)"
 ## pyenv setup
 # Setup virtualenv home
 export WORKON_HOME=$HOME/.virtualenvs
-source /Users/riteshsapata/.pyenv/versions/3.12.5/bin/virtualenvwrapper.sh
+source $VIRTUALENV_WRAPPER
 
 # Tell pyenv-virtualenvwrapper to use pyenv when creating new Python environments
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
