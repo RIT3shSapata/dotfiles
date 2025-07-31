@@ -78,3 +78,6 @@ alias c='clear'
 # Shell integrations
 eval "$(fzf --zsh)"
 # eval "$(zoxide init --cmd cd zsh)"
+
+# Go Path
+export PATH=${PATH}:`go env GOPATH`/bin
