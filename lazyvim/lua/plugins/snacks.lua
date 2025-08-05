@@ -10,6 +10,12 @@ return {
 					files = {
 						hidden = true, -- show hidden files
 						follow = true,
+						ignored = true,
+					},
+					explorer = {
+						hidden = true, -- show hidden files
+						follow = true,
+						ignored = true,
 					},
 				},
 			},
