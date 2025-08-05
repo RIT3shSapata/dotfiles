@@ -81,3 +81,7 @@ eval "$(fzf --zsh)"
 
 # Go Path
 export PATH=${PATH}:`go env GOPATH`/bin
+
+# tmuxifier setup
+export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
+eval "$(tmuxifier init -)"
