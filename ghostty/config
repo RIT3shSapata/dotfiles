@@ -1,2 +1,4 @@
 theme=catppuccin-Macchiato
 font-family = "GoogleSansCode"
+auto-update-channel = tip
+auto-update = download
