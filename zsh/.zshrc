@@ -88,3 +88,6 @@ eval "$(tmuxifier init -)"
 
 # zoxide setup
 eval "$(zoxide init zsh)"
+
+# posting setup
+export PATH="$HOME/.local/bin/:$PATH"
