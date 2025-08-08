@@ -1,0 +1,4 @@
+theme: catppuccin-mocha
+keymap:
+  send-request: ctrl+r,ctrl+i
+  save-request: ctrl+q

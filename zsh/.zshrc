@@ -88,3 +88,13 @@ eval "$(tmuxifier init -)"
 
 # zoxide setup
 eval "$(zoxide init zsh)"
+
+# posting setup
+export PATH="$HOME/.local/bin/:$PATH"
+
+# ghostty version 1.14 does not implement OSC52, due to this the export to curl in posting does not work
+# ghostty issue discussion: https://github.com/ghostty-org/ghostty/discussions/7590 (issue fixed in main, yet to be released)
+# posting issue discussion: https://github.com/darrenburns/posting/issues/237, workaround mentioned in the isssue thread
+# TODO: upgrade ghostty 1.20 when Available
+alias posting="TERM_PROGRAM=Apple_Terminal posting"
+
