@@ -2,3 +2,5 @@ theme=catppuccin-Macchiato
 font-family = "GoogleSansCode"
 auto-update-channel = tip
 auto-update = download
+background-opacity = 0.85
+background-blur = true
