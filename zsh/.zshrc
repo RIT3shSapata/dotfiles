@@ -1,6 +1,11 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+export PROFILING_MODE=0
+if [ $PROFILING_MODE -ne 0 ]; then
+    zmodload zsh/zprof
+fi
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -23,24 +28,49 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Add in zsh plugins
+# Add in zsh plugins with turbo mode for faster startup
+zinit ice wait lucid
 zinit light zsh-users/zsh-syntax-highlighting
+
+zinit ice wait lucid
 zinit light zsh-users/zsh-completions
+
+zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
+
+zinit ice wait lucid
 zinit light Aloxaf/fzf-tab
+
+zinit ice wait lucid
 zinit light jeffreytse/zsh-vi-mode
 
-# Add in snippets
+# Add in snippets with turbo mode
+zinit ice wait lucid
 zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
-zinit snippet OMZP::alias-finder
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
-zinit snippet OMZP::command-not-found
 
-# Load completions
-autoload -Uz compinit && compinit
+zinit ice wait lucid
+zinit snippet OMZP::git
+
+zinit ice wait lucid
+zinit snippet OMZP::alias-finder
+
+zinit ice wait lucid
+zinit snippet OMZP::aws
+
+zinit ice wait lucid
+zinit snippet OMZP::kubectl
+
+zinit ice wait lucid
+zinit snippet OMZP::kubectx
+
+# Load completions - optimized to run once per day
+autoload -Uz compinit
+zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+if [[ -n $zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 zinit cdreplay -q
 
@@ -75,26 +105,42 @@ alias vim='nvim'
 alias vi='nvim'
 alias c='clear'
 
-# Shell integrations
-eval "$(fzf --zsh)"
-# eval "$(zoxide init --cmd cd zsh)"
-
 # Go Path
 export PATH=${PATH}:`go env GOPATH`/bin
 
 # tmuxifier setup
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
-
-# zoxide setup
-eval "$(zoxide init zsh)"
 
 # posting setup
 export PATH="$HOME/.local/bin/:$PATH"
+
+# Shell integrations - defer to not block instant prompt
+if command -v fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+if command -v tmuxifier &> /dev/null; then
+  eval "$(tmuxifier init -)"
+fi
 
 # ghostty version 1.14 does not implement OSC52, due to this the export to curl in posting does not work
 # ghostty issue discussion: https://github.com/ghostty-org/ghostty/discussions/7590 (issue fixed in main, yet to be released)
 # posting issue discussion: https://github.com/darrenburns/posting/issues/237, workaround mentioned in the isssue thread
 # TODO: upgrade ghostty 1.20 when Available
 alias posting="TERM_PROGRAM=Apple_Terminal posting"
+
+# export PATH="$HOME/scripts/:$PATH"
+#
+#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+if [ $PROFILING_MODE -ne 0 ]; then
+  zprof
+fi
 
