@@ -75,7 +75,7 @@ fi
 zinit cdreplay -q
 
 # Keybindings
-bindkey 'L' autosuggest-accept
+# bindkey 'L' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
@@ -144,3 +144,36 @@ if [ $PROFILING_MODE -ne 0 ]; then
   zprof
 fi
 
+# git shortcuts
+git() {
+  # interactive checkout
+  if [[ $1 == "checkout" && $# -eq 1 ]]; then
+    command git checkout $(command git branch --sort=-committerdate | fzf)
+  # interactive stash
+  elif [[ $1 == "stash" && $2 == "pop" && $# -eq 2 ]]; then
+    command git stash pop $(command git stash list | fzf | cut -d: -f1)
+  else
+    command git "$@"
+  fi
+}
+
+
+glast() {
+  local count=${1:-20}
+  local current_branch=$(git rev-parse --abbrev-ref HEAD)
+  local remote_branch="origin/${current_branch}"
+
+  if ! git rev-parse --verify "$remote_branch" >/dev/null 2>&1; then
+    remote_branch="origin/main"
+  fi
+
+  local unpushed=$(git log "$remote_branch"..HEAD --pretty=format:"%h" 2>/dev/null | paste -sd'|')
+
+  git log -n "$count" --pretty=format:"%h %an %s" | awk -v u="$unpushed" '
+    BEGIN { split(u, a, "|"); for (i in a) hashes[a[i]] = 1 }
+    { color = ($1 in hashes) ? 31 : 33; printf "\033[0;%dm%s\033[0m\n", color, $0 }
+  '
+}
+
+
+export GOTOOLCHAIN=auto
