@@ -1,6 +1,6 @@
 # Personal agent instructions
 
-This package stores explanation preferences for Codex and Claude Code.
+This package stores explanation and commit message preferences for Codex and Claude Code.
 GNU Stow creates symlinks, which point the installed files to their source files.
 Both agents use the same canonical `AGENTS.md` and instruction modules.
 
@@ -13,6 +13,7 @@ agent-configs/
 ├── .stow-local-ignore
 ├── instructions/
 │   └── general/
+│       ├── commit-messages.md
 │       ├── explanations.md
 │       └── diagrams.md
 ├── scripts/
@@ -25,6 +26,7 @@ agent-configs/
 `AGENTS.md` names the modules and retains the core preferences as a fallback.
 `explanations.md` describes the teaching sequence, examples, pseudocode, and comparisons.
 `diagrams.md` describes diagram creation, storage, rendering, and display.
+`commit-messages.md` defines the commit format, change types, components, and approval requirements.
 `CLAUDE.md` points to `AGENTS.md`, so both entry points stay consistent.
 The package does not create sample roles, skills, workflows, or unrelated coding rules.
 
@@ -41,6 +43,12 @@ Chats without a project use the session artifact folder.
 Agents ask you to install Mermaid CLI if `mmdc` is unavailable.
 Agents preserve the `.mmd` source and show a file link when image display is unavailable.
 Ordinary progress messages do not require diagrams.
+
+Commit messages use `<change-type>(<component-changed>): <commit-title>`, followed by a blank line and a description with grouped bullet points.
+The permitted change types are `feat`, `fix`, `task`, `doc`, and `improv`.
+Titles stay short, and the entire message uses present tense.
+Agents suggest the type and component and wait for your approval of the complete message before finalizing it or committing.
+Asking for a commit message alone does not authorize creating a commit.
 
 These preferences use the choices from the setup chat and recurring requests in previous Codex chats.
 The history review covered available local chats, archived chats, and the accessible remote Codex chat.

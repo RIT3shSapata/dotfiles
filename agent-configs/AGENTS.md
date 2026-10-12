@@ -5,6 +5,7 @@ Treat them as personal defaults, subject to higher-priority instructions and exp
 Keep project-specific build commands and coding rules in the project instructions.
 
 Before answering an explanation request, read `instructions/general/explanations.md` and `instructions/general/diagrams.md`.
+Before proposing a commit message or creating or amending a commit, read `instructions/general/commit-messages.md`.
 
 Resolve these paths from the directory containing the user-wide instruction file, never from the current project directory.
 For Codex, use `${CODEX_HOME:-$HOME/.codex}`.
@@ -23,3 +24,10 @@ For chats without a project, use the session artifact folder.
 
 These instructions govern explanations, not every status message or implementation summary.
 Do not interpret an explanation request as permission to change application code.
+
+For commit messages, use `<change-type>(<component-changed>): <commit-title>`, a blank line, and a concise description with grouped bullet points.
+Use only `feat`, `fix`, `task`, `doc`, or `improv` as the change type.
+Use present tense throughout the message.
+Suggest the change type and component before finalizing the message.
+Obtain explicit user approval of the type, component, title, and description before finalizing the message or committing.
+A request for a commit message does not authorize creating a commit.
