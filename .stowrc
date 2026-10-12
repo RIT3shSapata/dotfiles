@@ -1,0 +1,3 @@
+--no-folding
+--ignore=\\.DS_Store
+--ignore=old\\.zshrc

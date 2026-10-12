@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+cd "$repo_dir"
+
+stow --target="$HOME" aerospace lazyvim lazygit posting tmux tmuxifier zsh
+stow --target="$config_dir/ghostty" ghostty
+stow --target="$config_dir/yazi" yazi
+
+"$repo_dir/agent-configs/scripts/stow.sh"
+
+printf 'Dotfiles linked successfully.\n'
