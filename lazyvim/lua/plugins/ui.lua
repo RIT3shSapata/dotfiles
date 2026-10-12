@@ -13,5 +13,7 @@ return {
 				solid = true,
 			},
 		})
+
+		vim.cmd.colorscheme("catppuccin")
 	end,
 }
