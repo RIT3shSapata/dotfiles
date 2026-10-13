@@ -4,12 +4,12 @@ Personal configuration files managed with [GNU Stow](https://www.gnu.org/softwar
 
 ## Requirements
 
-Install Git, GNU Stow, Zsh, Neovim, tmux, tmuxifier, Yazi, Lazygit, Posting, Ghostty, and AeroSpace. Ghostty and AeroSpace are macOS applications; the other tools can be installed using your platform's package manager.
+Install Git, GNU Stow, Zsh, Neovim, tmux, tmuxifier, Yazi, Lazygit, Git Delta, Posting, Ghostty, and AeroSpace. Git Delta provides the diff pager that Lazygit uses in the Changes tab. Ghostty and AeroSpace are macOS applications; the other tools can be installed using your platform's package manager.
 
 On macOS with Homebrew:
 
 ```bash
-brew install git stow zsh neovim tmux tmuxifier yazi lazygit posting
+brew install git stow zsh neovim tmux tmuxifier yazi lazygit git-delta posting
 brew install --cask ghostty aerospace
 ```
 
